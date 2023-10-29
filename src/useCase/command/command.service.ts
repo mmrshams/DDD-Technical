@@ -1,27 +1,60 @@
 import { Injectable } from '@nestjs/common';
-import { RideRepository } from 'src/egress/mongoDb/repository/ride.repository';
-import { CreateRideDto, CreateTicketDto } from './dto/command.dto';
-import { Ride } from 'src/domain/travel/ride';
-import { RideDataMapper } from 'src/egress/mongoDb/dataMapper/ride.data-mapper';
+import { LabyrinthRepository } from 'src/egress/mongoDb/repository/labyrinth.repository';
+import { CreateTicketDto } from './dto/command.dto';
+import { Labyrinth, LabyrinthFulfillmentType } from 'src/domain/labyrinth/Labyrinth';
+import { LabyrinthDataMapper } from 'src/egress/mongoDb/dataMapper/labyrinth.data-mapper';
 
 @Injectable()
 export class CommandService {
   constructor(
-    private readonly rideRepository: RideRepository,
-    private readonly rideDataMapper: RideDataMapper
+    private readonly labyrinthRepositoryRepository: LabyrinthRepository,
+    private readonly labyrinthDataMapperDataMapper: LabyrinthDataMapper
   ) {
 
   }
-  async addRide(data: CreateRideDto): Promise<boolean> {
-    const rideInstance = Ride.create(data)
-    return this.rideRepository.create(this.rideDataMapper.toDalEntity(rideInstance))
+  async createLabyrinth(userId): Promise<boolean> {
+    const rideInstance = Labyrinth.create({ userId })
+    return this.labyrinthRepositoryRepository.create(this.labyrinthDataMapperDataMapper.toDalEntity(rideInstance))
   }
 
-  async purchaseTicket(data: CreateTicketDto): Promise<boolean> {
-    const rideSchema = await this.rideRepository.getById(data.rideId)
-    const rideInstance = Ride.create(rideSchema, rideSchema.uuid)
-    rideInstance.ticketPurchase({ count: data.count })
-    await this.rideRepository.replace(rideInstance.uuid, this.rideDataMapper.toDalEntity(rideInstance), data.version)
+  async setLabyrinthStartPoint(id: string, x: number, y: number, userId: string) {
+    const labyrinthSchema = await this.labyrinthRepositoryRepository.getById(id)
+    const labyrinthInstance = Labyrinth.create(labyrinthSchema, labyrinthSchema.uuid)
+    // TODO : check userId here for validity
+    labyrinthInstance.setStartCoordination(x, y)
+    await this.labyrinthRepositoryRepository.replace(
+      labyrinthInstance.uuid,
+      this.labyrinthDataMapperDataMapper.toDalEntity(labyrinthInstance))
     return true
+  }
+
+  async setLabyrinthEndPoint(id: string, x: number, y: number, userId: string) {
+    const labyrinthSchema = await this.labyrinthRepositoryRepository.getById(id)
+    const labyrinthInstance = Labyrinth.create(labyrinthSchema, labyrinthSchema.uuid)
+    // TODO : check userId here for validity
+    labyrinthInstance.setEndCoordination(x, y)
+    await this.labyrinthRepositoryRepository.replace(
+      labyrinthInstance.uuid,
+      this.labyrinthDataMapperDataMapper.toDalEntity(labyrinthInstance))
+    return true
+  }
+
+  async setLabyrinthPlayfieldPoint(id: string, x: number, y: number, type: LabyrinthFulfillmentType, userId: string) {
+    const labyrinthSchema = await this.labyrinthRepositoryRepository.getById(id)
+    const labyrinthInstance = Labyrinth.create(labyrinthSchema, labyrinthSchema.uuid)
+    // TODO : check userId here for validity
+    labyrinthInstance.setPlayField(x, y, type)
+    await this.labyrinthRepositoryRepository.replace(
+      labyrinthInstance.uuid,
+      this.labyrinthDataMapperDataMapper.toDalEntity(labyrinthInstance))
+    return true
+  }
+
+  async setLabyrinthSolution(id: string, userId: string) {
+    const labyrinthSchema = await this.labyrinthRepositoryRepository.getById(id)
+    const labyrinthInstance = Labyrinth.create(labyrinthSchema, labyrinthSchema.uuid)
+    // TODO : check userId here for validity
+    // fix it
+    return labyrinthInstance.generateSolution() as any as string[]
   }
 }

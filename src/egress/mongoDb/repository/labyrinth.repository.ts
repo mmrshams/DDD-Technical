@@ -1,13 +1,14 @@
 import { InjectModel } from "@nestjs/mongoose";
-import { RideSchema, RideModel } from "../schema/ride.schema";
+
 import { Model } from "mongoose";
+import { LabyrinthSchema } from "../schema/labyrinth.schema";
 
 // TODO: improve it
-export class RideRepository {
+export class LabyrinthRepository {
   constructor(
-    @InjectModel(RideSchema.name) private rideModel: Model<RideSchema>,
+    @InjectModel(LabyrinthSchema.name) private rideModel: Model<LabyrinthSchema>,
   ) { }
-  async create(data: RideSchema): Promise<boolean> {
+  async create(data: LabyrinthSchema): Promise<boolean> {
     const rideInstance = new this.rideModel(data)
     await rideInstance.save()
     return true
@@ -20,10 +21,10 @@ export class RideRepository {
   async getById(id) {
     return this.rideModel.findOne({ uuid: id })
   }
-
-  async replace(id, data, version) {
+  
+  async replace(id, data, version?) {
     const instance = await this.getById(id)
-    if (version !== instance.__v) {
+    if (version && version !== instance.__v) {
       throw new Error('Invalid Version')
     }
     return this.rideModel.replaceOne({ uuid: id }, { ...data, __v: ++instance.__v  })
