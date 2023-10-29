@@ -40,7 +40,7 @@ export class Ride extends Entity {
   }
 
   public static create(props: RideProps, guid?: string) {
-    if (!props.segments || !props.capacity) {
+    if (!props.segments || props.capacity === undefined) {
       throw new Error('Unable to create the Ride!');
     }
     return new Ride(props, guid);
