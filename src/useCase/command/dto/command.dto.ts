@@ -1,31 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsString, IsPositive, IsNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsNumber } from 'class-validator';
 
-export class CreateRideDto {
-  @ApiProperty()
-  @IsArray()
-  @IsString({ each: true })
-  segments: string[];
+export class LabyrinthDto {
 
   @ApiProperty()
-  @IsPositive()
-  capacity: number;
+  @IsNumber()
+  @IsNotEmpty()
+  version: number;
 }
 
 
-export class CreateTicketDto {
-    @ApiProperty()
-    @IsString()
-    @IsNotEmpty()
-    rideId: string;
-  
-    @ApiProperty()
-    @IsPositive()
-    count: number;
-    
-    @ApiProperty()
-    @IsNumber()
-    @IsNotEmpty()
-    version: number;
-  }
-  
+

@@ -9,7 +9,7 @@ export class UserSchema {
     this.uuid = uuid
 
   }
-  @Prop()
+  @Prop({ unique: true })
   username: string;
 
   // hash password

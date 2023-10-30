@@ -29,7 +29,7 @@ export class User extends Entity {
   }
 
 
-  public static create(data: CreateUserProps, uuid: string) {
+  public static create(data: CreateUserProps, uuid?: string) {
     return new User(data, uuid);
   }
 

@@ -19,7 +19,7 @@ export class LabyrinthSchema {
   @Prop()
   endCoordination: [number, number];
 
-  @Prop({ unique: true })
+  @Prop({})
   userId: string;
 
   @Prop({ unique: true })

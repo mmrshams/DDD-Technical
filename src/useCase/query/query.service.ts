@@ -10,13 +10,13 @@ export class QueryService {
     private readonly labyrinthDataMapper: LabyrinthDataMapper
   ) { }
 
-  async getLabyrinth(userId: string): Promise<Labyrinth[]> {
-    return (await this.labyrinthRepository.get(userId)).map(item => this.labyrinthDataMapper.toDomain(item))
+  async getLabyrinth(userId: string): Promise<any[]> {
+    return this.labyrinthRepository.get({userId})
+    
   }
 
-  async getLabyrinthById(id: string, userId: string): Promise<Labyrinth> {
-    // fix this
-    return (await this.labyrinthRepository.get({id, userId})).map(item => this.labyrinthDataMapper.toDomain(item))[0]
+  async getLabyrinthById(id: string, userId: string): Promise<any> {
+    return this.labyrinthRepository.getByIdAndUserId(id, userId)
   }
 }
 
