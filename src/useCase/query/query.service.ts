@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Labyrinth } from 'src/domain/labyrinth/Labyrinth';
+import { Labyrinth } from 'src/domain/labyrinth/labyrinth';
 import { LabyrinthDataMapper } from 'src/egress/mongoDb/dataMapper/labyrinth.data-mapper';
 import { LabyrinthRepository } from 'src/egress/mongoDb/repository/labyrinth.repository';
 

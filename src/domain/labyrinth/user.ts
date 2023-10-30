@@ -1,4 +1,4 @@
-import { Entity } from 'src/domain/common/entity.abstract';
+import { Entity } from '../../domain/common/entity.abstract';
 
 export type CreateUserProps = {
   username: string;

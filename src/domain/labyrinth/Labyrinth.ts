@@ -1,6 +1,6 @@
-import { Entity } from 'src/domain/common/entity.abstract';
+import { Entity } from '../../domain/common/entity.abstract';
 
-type LabyrinthProps = {
+export type LabyrinthProps = {
   userId: string;
   startCoordination?: [number, number];
   endCoordination?: [number, number];

@@ -3,7 +3,7 @@ import { LabyrinthRepository } from 'src/egress/mongoDb/repository/labyrinth.rep
 import {
   Labyrinth,
   LabyrinthFulfillmentType,
-} from 'src/domain/labyrinth/Labyrinth';
+} from 'src/domain/labyrinth/labyrinth';
 import { LabyrinthDataMapper } from 'src/egress/mongoDb/dataMapper/labyrinth.data-mapper';
 import { User } from 'src/domain/labyrinth/user';
 import { UserRepository } from 'src/egress/mongoDb/repository/user.repository';

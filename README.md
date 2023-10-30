@@ -79,9 +79,9 @@ $ docker-compose up
 # unit tests
 $ npm run test
 
-# e2e tests
+# e2e tests - before run the e2e test please run the app separately
 $ npm run test:e2e
 
-# test coverage
+# test coverage 
 $ npm run test:cov
 ```

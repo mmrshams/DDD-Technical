@@ -22,7 +22,6 @@ export class BasicStrategy extends PassportStrategy(Strategy) {
 
     // hash compare bcrypt need to be added here
     const passwordMatch = await bcrypt.compare(password, userRef.password);
-    console.log('>>.userRef', passwordMatch);
     if (passwordMatch) {
       req.userId = userRef.uuid;
       return true;

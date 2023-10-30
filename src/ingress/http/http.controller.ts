@@ -16,7 +16,7 @@ import { ApiBearerAuth } from '@nestjs/swagger';
 import {
   Labyrinth,
   LabyrinthFulfillmentType,
-} from 'src/domain/labyrinth/Labyrinth';
+} from 'src/domain/labyrinth/labyrinth';
 import { LabyrinthDto } from 'src/useCase/command/dto/command.dto';
 @Controller('/labyrinth')
 @UseGuards(AuthGuard('basic'))
@@ -26,7 +26,6 @@ export class HttpController {
     private readonly commandService: CommandService,
     private readonly queryService: QueryService,
   ) {}
-
   /**
    * TODO Actions:
    *  1. GET /labyrinth/:id [done]
