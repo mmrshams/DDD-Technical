@@ -1,12 +1,11 @@
-
-import { Entity } from "src/domain/common/entity.abstract";
+import { Entity } from 'src/domain/common/entity.abstract';
 
 type LabyrinthProps = {
-  userId: string,
-  startCoordination?: [number, number],
-  endCoordination?: [number, number],
-  grid?: number[][]
-}
+  userId: string;
+  startCoordination?: [number, number];
+  endCoordination?: [number, number];
+  grid?: number[][];
+};
 
 export enum LabyrinthFulfillmentType {
   empty = 0,
@@ -14,23 +13,20 @@ export enum LabyrinthFulfillmentType {
 }
 /**[NOTE]: Labyrinth is the aggregate root */
 export class Labyrinth extends Entity {
+  private startCoordination: [number, number] = undefined;
+  private endCoordination: [number, number] = undefined;
+  private grid: number[][];
+  private userId: string;
 
-  private startCoordination: [number, number] = undefined
-  private endCoordination: [number, number] = undefined
-  private grid: number[][]
-  private userId: string
-
-  private constructor({
-    userId,
-    startCoordination,
-    endCoordination,
-    grid,
-  }: LabyrinthProps, uuid?: string) {
+  private constructor(
+    { userId, startCoordination, endCoordination, grid }: LabyrinthProps,
+    uuid?: string,
+  ) {
     super(uuid);
-    this.userId = userId
-    this.startCoordination = startCoordination
-    this.endCoordination = endCoordination
-    grid ? this.grid = grid : this.grid = []
+    this.userId = userId;
+    this.startCoordination = startCoordination;
+    this.endCoordination = endCoordination;
+    grid ? (this.grid = grid) : (this.grid = []);
   }
 
   get getGrid() {
@@ -50,20 +46,24 @@ export class Labyrinth extends Entity {
   }
 
   private userIdValidator(userId) {
-    if (this.userId !== userId) throw Error('Permission Denied!')
+    if (this.userId !== userId) throw Error('Permission Denied!');
   }
 
   public setStartCoordination(lat: number, lon: number) {
-    this.startCoordination = [lat, lon]
-    this.setPlayField(lat,lon, LabyrinthFulfillmentType.empty)
+    this.startCoordination = [lat, lon];
+    this.setPlayField(lat, lon, LabyrinthFulfillmentType.empty);
   }
 
   public setEndCoordination(lat: number, lon: number) {
-    this.endCoordination = [lat, lon]
-    this.setPlayField(lat,lon, LabyrinthFulfillmentType.empty)
+    this.endCoordination = [lat, lon];
+    this.setPlayField(lat, lon, LabyrinthFulfillmentType.empty);
   }
 
-  public setPlayField(lat: number, lon: number, type: LabyrinthFulfillmentType) {
+  public setPlayField(
+    lat: number,
+    lon: number,
+    type: LabyrinthFulfillmentType,
+  ) {
     while (this.grid.length <= lat) {
       this.grid.push([]);
     }
@@ -74,11 +74,14 @@ export class Labyrinth extends Entity {
   }
 
   public generateSolution(userId: string) {
-    this.userIdValidator(userId)
+    this.userIdValidator(userId);
     // TODO fix error handling
     /** do not forget to set validations before generate solution */
-    if (this.startCoordination.length === undefined || this.endCoordination.length === undefined) {
-      throw Error('First Set up start and end coordinations')
+    if (
+      this.startCoordination.length === undefined ||
+      this.endCoordination.length === undefined
+    ) {
+      throw Error('First Set up start and end coordinations');
     }
     const rows = this.grid.length;
     const cols = this.grid[0].length;
@@ -86,18 +89,23 @@ export class Labyrinth extends Entity {
       [-1, 0, 'up'],
       [1, 0, 'down'],
       [0, -1, 'left'],
-      [0, 1, 'right']
+      [0, 1, 'right'],
     ];
 
     const queue = [{ position: this.startCoordination, distance: 0, path: [] }];
-    const visited = new Array(rows).fill(null).map(() => new Array(cols).fill(false));
+    const visited = new Array(rows)
+      .fill(null)
+      .map(() => new Array(cols).fill(false));
 
     visited[this.startCoordination[0]][this.startCoordination[1]] = true;
 
     while (queue.length > 0) {
       const { position, distance, path } = queue.shift();
 
-      if (position[0] === this.endCoordination[0] && position[1] === this.endCoordination[1]) {
+      if (
+        position[0] === this.endCoordination[0] &&
+        position[1] === this.endCoordination[1]
+      ) {
         return { distance, path };
       }
 
@@ -117,7 +125,7 @@ export class Labyrinth extends Entity {
           queue.push({
             position: [newRow, newCol],
             distance: distance + 1,
-            path: [...path, dir]
+            path: [...path, dir],
           });
         }
       }
@@ -125,13 +133,10 @@ export class Labyrinth extends Entity {
     return -1; // No path found.
   }
 
-
-
   public static create(props: LabyrinthProps, guid?: string) {
     if (!props.userId) {
       throw new Error('Unable to create the Labyrinth!');
     }
     return new Labyrinth(props, guid);
   }
-
 }

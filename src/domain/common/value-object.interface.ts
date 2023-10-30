@@ -1,4 +1,3 @@
-
 interface IValueObjectProps {
   [index: string]: any;
 }
@@ -9,6 +8,4 @@ export abstract class ValueObject<T extends IValueObjectProps> {
   constructor(props: T) {
     this.props = Object.freeze(props);
   }
-
-
 }

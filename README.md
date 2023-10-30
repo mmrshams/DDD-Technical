@@ -35,6 +35,9 @@ with combination of Hexagonal architecture as much as possible, some important n
 ![Alt Text](./static/readme-image.png)
 
 
+## Help
+- Service is running in 3000 port
+- You can find swagger in localhost:3000/api
 
 ## Installation
 

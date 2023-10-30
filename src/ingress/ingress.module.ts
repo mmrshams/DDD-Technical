@@ -6,11 +6,12 @@ import { APP_FILTER } from '@nestjs/core';
 
 @Module({
   imports: [UseCaseModule],
-  providers: [{
-    provide: APP_FILTER,
-    useClass: GlobalExceptionFilter,
-  },],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: GlobalExceptionFilter,
+    },
+  ],
   controllers: [HttpController],
 })
-
-export class IngressModule { }
+export class IngressModule {}

@@ -7,16 +7,14 @@ import { LabyrinthRepository } from 'src/egress/mongoDb/repository/labyrinth.rep
 export class QueryService {
   constructor(
     private readonly labyrinthRepository: LabyrinthRepository,
-    private readonly labyrinthDataMapper: LabyrinthDataMapper
-  ) { }
+    private readonly labyrinthDataMapper: LabyrinthDataMapper,
+  ) {}
 
   async getLabyrinth(userId: string): Promise<any[]> {
-    return this.labyrinthRepository.get({userId})
-    
+    return this.labyrinthRepository.get({ userId });
   }
 
   async getLabyrinthById(id: string, userId: string): Promise<any> {
-    return this.labyrinthRepository.getByIdAndUserId(id, userId)
+    return this.labyrinthRepository.getByIdAndUserId(id, userId);
   }
 }
-

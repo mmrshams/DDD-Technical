@@ -1,10 +1,8 @@
 import { AppModule } from './app.module';
 import { HttpIngressBootstrap } from './ingress/http';
 
-
 // ingress bounding
 HttpIngressBootstrap(AppModule);
-
 
 // [TODO]
 // 2. add userId validation [done]
@@ -14,6 +12,8 @@ HttpIngressBootstrap(AppModule);
 // 7. hash password [done]
 // 1.show Proper Error [done]
 // 4. check solution Algo and refactoring there  [done]
-// 5. enable linter
+// 5. enable linter [done]
+// 9. write tests
+// 10. algo optimization
 
 // 8. nice to have <merge Repositories>

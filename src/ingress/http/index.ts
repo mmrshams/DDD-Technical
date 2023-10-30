@@ -18,7 +18,7 @@ export async function HttpIngressBootstrap(AppModule) {
 
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new HttpStatusInterceptor());
-  
+
   SwaggerModule.setup('api', app, document);
 
   await app.listen(3000);

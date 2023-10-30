@@ -6,4 +6,4 @@ export abstract class Entity {
   constructor(guid?: string) {
     this.uuid = guid || UUID();
   }
-} 
+}
