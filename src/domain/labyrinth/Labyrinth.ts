@@ -75,16 +75,19 @@ export class Labyrinth extends Entity {
 
   public generateSolution(userId: string) {
     this.userIdValidator(userId);
-    // TODO fix error handling
     /** do not forget to set validations before generate solution */
     if (
       this.startCoordination.length === undefined ||
       this.endCoordination.length === undefined
     ) {
-      throw Error('First Set up start and end coordinations');
+      throw Error('First Setup start and end coordinations');
     }
+
+    /**[NOTE]: measure vertical and horizontal size of the problem space */
     const rows = this.grid.length;
     const cols = this.grid[0].length;
+
+    /**[NOTE]: direction mapping */
     const directions = [
       [-1, 0, 'up'],
       [1, 0, 'down'],
@@ -92,16 +95,25 @@ export class Labyrinth extends Entity {
       [0, 1, 'right'],
     ];
 
+    /**[NOTE]:
+     * Queue: is the place that we trace paths and distance from start point
+     * Visited: help to avoid add met houses in queue
+     */
     const queue = [{ position: this.startCoordination, distance: 0, path: [] }];
     const visited = new Array(rows)
       .fill(null)
       .map(() => new Array(cols).fill(false));
 
+    /**[NOTE]: set the start point as visited */
     visited[this.startCoordination[0]][this.startCoordination[1]] = true;
 
+    /**[NOTE]: while loop plan is to trace all houses if if found will return distance + path
+     * that will be mutate on each iteration if its not found after while we have -1 means no path founds!
+     */
     while (queue.length > 0) {
       const { position, distance, path } = queue.shift();
 
+      /**[NOTE]: if start and end point were the same just return the result */
       if (
         position[0] === this.endCoordination[0] &&
         position[1] === this.endCoordination[1]
@@ -109,10 +121,13 @@ export class Labyrinth extends Entity {
         return { distance, path };
       }
 
+      /**[NOTE]: BFs tracing like first check all surrounded houses */
       for (const [dx, dy, dir] of directions) {
         const newRow = position[0] + Number(dx);
         const newCol = position[1] + Number(dy);
 
+        /**[NOTE]: in this condition i check each new Row or new Col should be smaller than
+         *  grid boundaries and in other hand bigger than negative numbers  */
         if (
           newRow >= 0 &&
           newRow < rows &&
@@ -121,6 +136,7 @@ export class Labyrinth extends Entity {
           this.grid[newRow][newCol] !== 1 &&
           !visited[newRow][newCol]
         ) {
+          /**[NOTE]: move trough path */
           visited[newRow][newCol] = true;
           queue.push({
             position: [newRow, newCol],
@@ -130,7 +146,8 @@ export class Labyrinth extends Entity {
         }
       }
     }
-    return -1; // No path found.
+    /**[NOTE]: No path found. */
+    return -1;
   }
 
   public static create(props: LabyrinthProps, guid?: string) {

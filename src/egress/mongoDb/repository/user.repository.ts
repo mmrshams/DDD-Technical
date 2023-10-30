@@ -3,7 +3,6 @@ import { Model } from 'mongoose';
 import { UserSchema } from '../schema/user.schema';
 import * as bcrypt from 'bcrypt';
 
-// TODO: improve it
 export class UserRepository {
   constructor(
     @InjectModel(UserSchema.name) private userModel: Model<UserSchema>,

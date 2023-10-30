@@ -3,7 +3,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { LabyrinthSchema } from '../schema/labyrinth.schema';
 
-// TODO: improve it
 export class LabyrinthRepository {
   constructor(
     @InjectModel(LabyrinthSchema.name)

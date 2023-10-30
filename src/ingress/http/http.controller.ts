@@ -27,7 +27,7 @@ export class HttpController {
     private readonly queryService: QueryService,
   ) {}
   /**
-   * TODO Actions:
+   * [TODO] Actions:
    *  1. GET /labyrinth/:id [done]
    *  2. GET /labyrinth/:id [done]
    *  3. POST /labyrinth [done]

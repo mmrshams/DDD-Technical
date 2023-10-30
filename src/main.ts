@@ -13,7 +13,7 @@ HttpIngressBootstrap(AppModule);
 // 1.show Proper Error [done]
 // 4. check solution Algo and refactoring there  [done]
 // 5. enable linter [done]
-// 9. write tests
-// 10. algo optimization
+// 9. write tests [done]
+// 10. algo optimization [done]
 
 // 8. nice to have <merge Repositories>
