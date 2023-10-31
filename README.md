@@ -85,3 +85,17 @@ $ npm run test:e2e
 # test coverage 
 $ npm run test:cov
 ```
+## Deployment
+
+```bash
+$ docker build -t nest-ddd:latest .
+$ docker tag nest-ddd:latest your-docker-registry/nest-ddd:latest 
+$ docker push your-docker-registry/nest-ddd:latest # or any other tag/version
+
+$ kubectl apply -f ./deployment.yaml
+$ kubectl apply -f ./mongodb-deployment.yaml
+$ kubectl apply -f ./mongodb-service.yaml
+$ kubectl apply -f ./nest-ddd-service.yaml
+
+```
+
