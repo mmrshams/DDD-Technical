@@ -1,12 +1,11 @@
-
 export interface Repository<T> {
-  findAll(): Promise<T[]>
+  findAll(): Promise<T[]>;
 
-  findOneById(guid: string): Promise<T | null>
+  findOneById(guid: string): Promise<T | null>;
 
-  doesExists(guid: string): Promise<boolean>
+  doesExists(guid: string): Promise<boolean>;
 
-  save(entity: T): Promise<void>
+  save(entity: T): Promise<void>;
 
-  delete(id: string): Promise<void>
+  delete(id: string): Promise<void>;
 }

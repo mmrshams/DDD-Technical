@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nest-ddd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nest-ddd
+  template:
+    metadata:
+      labels:
+        app: nest-ddd
+    spec:
+      containers:
+      - name: nest-ddd
+        image: mmrshams123/nest-ddd:31-ocb
+        ports:
+        - containerPort: 3000

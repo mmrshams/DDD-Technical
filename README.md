@@ -35,6 +35,9 @@ with combination of Hexagonal architecture as much as possible, some important n
 ![Alt Text](./static/readme-image.png)
 
 
+## Help
+- Service is running in 3000 port
+- You can find swagger in localhost:3000/api
 
 ## Installation
 
@@ -76,9 +79,23 @@ $ docker-compose up
 # unit tests
 $ npm run test
 
-# e2e tests
+# e2e tests - before run the e2e test please run the app separately
 $ npm run test:e2e
 
-# test coverage
+# test coverage 
 $ npm run test:cov
 ```
+## Deployment
+
+```bash
+$ docker build -t nest-ddd:latest .
+$ docker tag nest-ddd:latest your-docker-registry/nest-ddd:latest 
+$ docker push your-docker-registry/nest-ddd:latest # or any other tag/version
+
+$ kubectl apply -f ./deployment.yaml
+$ kubectl apply -f ./mongodb-deployment.yaml
+$ kubectl apply -f ./mongodb-service.yaml
+$ kubectl apply -f ./nest-ddd-service.yaml
+
+```
+

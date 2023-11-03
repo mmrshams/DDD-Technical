@@ -15,5 +15,8 @@ COPY . .
 # Expose the port that your NestJS application will run on
 EXPOSE 3000
 
+# Set the MONGO_URL as an environment variable
+ENV MONGO_URL="mongodb://mongodb-service:27017/ddd"
+
 # Command to run your NestJS application
 CMD [ "npm", "start" ]
